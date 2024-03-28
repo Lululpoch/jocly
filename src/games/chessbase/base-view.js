@@ -1222,7 +1222,11 @@
 				
 				resources.material=pieceMat;
 				
-				resources.geometry.mergeVertices()
+
+				// #UPGRADEISSUE Not availabel anymore with BufferGeomatry. Might be not necessary. 
+				// A function could be written to merge vertices with a threshold if needed
+				// resources.geometry.mergeVertices();
+
 				resources.geometry.computeVertexNormals(); // needed in normals not exported in js file!
 
 			},
