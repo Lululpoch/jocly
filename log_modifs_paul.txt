@@ -1,0 +1,2 @@
+third-party/LegacyJSONLoader-r99.js:
+	added the initMaterial and createMaterial (methods from r99) to allow material import from json files 
