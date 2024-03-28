@@ -295,6 +295,10 @@ if (window.JoclyXdViewCleanup)
 
 					// not sure of the side effects here but this removes the console
 					// warnings "THREE.DirectGeometry.fromGeometry(): Undefined vertexUv"
+					/*
+
+					#UPGRADEISSUE removed, is it necessary with BufferGeometry?
+
 					for (var i = 0; i < geometry.faceVertexUvs.length; i++) {
 						for (var j = 0; j < geometry.faceVertexUvs[i].length; j++) {
 							var uv = geometry.faceVertexUvs[i][j];
@@ -303,7 +307,7 @@ if (window.JoclyXdViewCleanup)
 						}
 						for (; j < geometry.faces.length; j++)
 							geometry.faceVertexUvs[i].push([{ x: 0, y: 0 }, { x: 0, y: 0 }, { x: 0, y: 0 }]);
-					}
+					}*/
 
 					if (smooth > 0) {
 						console.log("#UPGRADEISSUE Subdividing", smooth, "times"); // #UPGRADEISSUE: avoid subdivision
