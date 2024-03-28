@@ -349,7 +349,7 @@
 						create: function(callback){
 							
 							var pivot = new THREE.Object3D();//create an empty container
-							//var pivot = new THREE.Mesh(new THREE.CubeGeometry(10,10,10),new THREE.MeshPhongMaterial());//create an empty container
+							//var pivot = new THREE.Mesh(new THREE.BoxGeometry(10,10,10),new THREE.MeshPhongMaterial());//create an empty container
 							
 							var gg=new THREE.BoxGeometry((2*CELLTHICKNESS+interspace)*.05,CELLSIZE*NBROWS,CELLSIZE);
 							var mesh = new THREE.Mesh( gg , 

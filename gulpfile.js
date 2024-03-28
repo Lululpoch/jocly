@@ -316,7 +316,7 @@ gulp.task("build-browser-xdview", function () {
 	]));
 
 	var packedLibs = ProcessJS(gulp.src([
-		lib + "SubdivisionModifier.js",
+		//lib + "SubdivisionModifier.js", #UPGRADEISSUE !
 		lib + "tween.js",
 		lib + "tween.fix.js",
 		srcLib + "JoclyOrbitControls.js",
@@ -334,7 +334,9 @@ gulp.task("build-browser-xdview", function () {
 		lib + "kalman.js",
 		src + "browser/jocly.ar.js",
 		src + "browser/jocly.state-machine.js",
-		src + "browser/jocly.xd-view.js"
+		src + "browser/jocly.xd-view.js",
+		lib + "deprecated-geometry-r125.js",
+		lib + "LegacyJSONLoader-r99.js"
 	]), "jocly-xdview.js", true);
 
 	return merge(libs, packedLibs)

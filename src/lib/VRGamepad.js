@@ -289,7 +289,7 @@ function VRGamepads(opts) {
             var controllerObject = cache["vive-controller"];
             if(controllerObject===undefined) {
                 cache["vive-controller"] = [AddController];
-                var loader = new THREE.JSONLoader();
+                var loader = new THREE.LegacyJSONLoader();
                 loader.load( options.resBase + 'vive-controller/vr_controller_vive_1_5.js',
                     function(geometry) {
                         var loader = new THREE.TextureLoader();

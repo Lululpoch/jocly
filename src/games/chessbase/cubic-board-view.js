@@ -397,29 +397,36 @@
 			var matrix = new THREE.Matrix4();
 			if(orient.rotX) {
 				matrix.makeRotationX(orient.rotX*Math.PI/180);
-				geo.applyMatrix(matrix);
+				geo.applyMatrix4(matrix);
 			}
 			if(orient.rotY) {
 				matrix.makeRotationZ(orient.rotY*Math.PI/180);
-				geo.applyMatrix(matrix);
+				geo.applyMatrix4(matrix);
 			}
 			if(orient.rotZ) {
 				matrix.makeRotationY(orient.rotZ*Math.PI/180);
-				geo.applyMatrix(matrix);
+				geo.applyMatrix4(matrix);
 			}
 			matrix.makeTranslation(tranX,tranY,tranZ);
-			geo.applyMatrix(matrix);
+			geo.applyMatrix4(matrix);
 			
 			var ratio = cSize.widths[plane] / cSize.heights[plane];
 			
-			var uvs=geo.faceVertexUvs[0];
-			for (var u = 0 ; u < uvs.length ; u++){
-				for (var i = 0 ; i < uvs[u].length ; i++){
-					if(cSize.ratio<1)
-						uvs[u][i].x=uvs[u][i].x*cSize.ratio+(1-cSize.ratio)/2;
-					if(cSize.ratio>1)
-						uvs[u][i].y=uvs[u][i].y/cSize.ratio+(1-1/cSize.ratio)/2;
+			if (!geo.attributes.uv) {
+				console.warn("geometry has no UVs.");
+			}else{
+				const uvs = geo.attributes.uv.array;
+				const cSizeRatio = cSize.ratio; 
+
+				for (let i = 0; i < uvs.length; i += 2) {
+					if (cSizeRatio < 1) {
+						uvs[i] = uvs[i] * cSizeRatio + (1 - cSizeRatio) / 2;
+					}
+					if (cSizeRatio > 1) {
+						uvs[i + 1] = uvs[i + 1] / cSizeRatio + (1 - 1 / cSizeRatio) / 2;
+					}
 				}
+				geo.attributes.uv.needsUpdate = true;
 			}
 			
 			callback(geo);
@@ -428,18 +435,18 @@
 		createFenceGeometry: function(spec,fence,callback) {
 			var cSize = this.cbCSize(spec);
 			var fData = cSize.fences[fence] || {};
-			var geo = new THREE.CubeGeometry( cSize.fenceWidth/1000, fData.height/1000, cSize.fenceWidth/1000 );
+			var geo = new THREE.BoxGeometry( cSize.fenceWidth/1000, fData.height/1000, cSize.fenceWidth/1000 );
 
 			
 			var matrix = new THREE.Matrix4();
 			matrix.makeRotationX(fData.rx*Math.PI/180);
-			geo.applyMatrix(matrix);
+			geo.applyMatrix4(matrix);
 			matrix.makeRotationZ(fData.ry*Math.PI/180);
-			geo.applyMatrix(matrix);
+			geo.applyMatrix4(matrix);
 			matrix.makeRotationY(fData.rz*Math.PI/180);
-			geo.applyMatrix(matrix);
+			geo.applyMatrix4(matrix);
 			matrix.makeTranslation(-fData.tx/1000,-fData.tz/1000,-fData.ty/1000);
-			geo.applyMatrix(matrix);
+			geo.applyMatrix4(matrix);
 			
 			callback(geo);
 		},
@@ -477,7 +484,7 @@
 		createInnerMesh: function(spec,callback) {
 			var cSize = this.cbCSize(spec);
 			var factor = .99;
-			var insideGeo = new THREE.CubeGeometry( factor*NBCOLS*cSize.cellSize/1000, factor*NBFLOORS*cSize.cellSize/1000, factor*NBROWS*cSize.cellSize/1000 );
+			var insideGeo = new THREE.BoxGeometry( factor*NBCOLS*cSize.cellSize/1000, factor*NBFLOORS*cSize.cellSize/1000, factor*NBROWS*cSize.cellSize/1000 );
 			var insideMesh = new THREE.Mesh(insideGeo,new THREE.MeshPhongMaterial({color:0x000000,transparent:true,opacity:.9}));
 			insideMesh.castShadow = true;
 			callback(insideMesh);

@@ -601,7 +601,7 @@
 	
 					} ),
 	
-					mesh = new THREE.Mesh( new THREE.CubeGeometry( 3000, 3000, 3000 ), material );
+					mesh = new THREE.Mesh( new THREE.BoxGeometry( 3000, 3000, 3000 ), material );
 					return mesh;
 				},			
 			},
@@ -622,7 +622,7 @@
 				type : "custommesh3d",
 				z: -40,
 				create: function(){
-					var gg=new THREE.CubeGeometry(8,0.08,13);
+					var gg=new THREE.BoxGeometry(8,0.08,13);
                     var $this = this;
                     var loader = new THREE.TextureLoader();
                     loader.load(fullPath+"/res/xd-view/meshes/scrumfield8x12-3d.jpg",

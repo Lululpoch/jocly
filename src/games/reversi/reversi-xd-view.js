@@ -327,7 +327,7 @@
 				var frameGeo = new THREE.ExtrudeGeometry( frameShape, extrudeSettings );
 				var matrix = new THREE.Matrix4();
 				matrix.makeRotationX(-Math.PI/2)
-				frameGeo.applyMatrix(matrix);
+				frameGeo.applyMatrix4(matrix);
 				var frameColor="#000000";
 				if (avatar.options.frameColorFill) frameColor=avatar.options.frameColorFill;
 				frameMat = new THREE.MeshPhongMaterial({

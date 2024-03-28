@@ -53,7 +53,7 @@
 	// useful to initialize pieces and board while the real meshes aren't loaded yet
 	View.Game.chMakeDummyMesh = function(xdv) {
 		if(typeof THREE != "undefined")
-		    return new THREE.Mesh( new THREE.CubeGeometry( .001,.001,.001 ), 
+		    return new THREE.Mesh( new THREE.BoxGeometry( .001,.001,.001 ), 
 					      new THREE.MeshLambertMaterial() );
 		else
 			return null;
@@ -660,7 +660,7 @@
 			
 			var matrix = new THREE.Matrix4();
 			matrix.makeRotationX(-Math.PI/2)
-			frameGeo.applyMatrix(matrix);
+			frameGeo.applyMatrix4(matrix);
 			var frameColor="#000000";
 			if (avatar.options.frameColorFill) frameColor=avatar.options.frameColorFill;
 			frameMat = new THREE.MeshPhongMaterial({
@@ -1063,7 +1063,7 @@
 								var starSprite = texture ; 
 								for(var i=0;i<catCount;i++) {
 									var material = new THREE.PointsMaterial( { size: 0.5, map: starSprite, blending: THREE.NormalBlending,  depthTest: true, transparent : true } );
-									var geometry = new THREE.Geometry();
+									var geometry = new THREE.BufferGeometry();
 									for(var i=0;i<1000;i++) {
 										var vertex = new THREE.Vector3();
 										var r=12+Math.random()*40;

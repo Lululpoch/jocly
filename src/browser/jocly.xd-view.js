@@ -306,8 +306,9 @@ if (window.JoclyXdViewCleanup)
 					}
 
 					if (smooth > 0) {
-						var modifier = new THREE.SubdivisionModifier(smooth);
-						modifier.modify(geometry);
+						console.log("#UPGRADEISSUE Subdividing", smooth, "times"); // #UPGRADEISSUE: avoid subdivision
+						//var modifier = new THREE.SubdivisionModifier(smooth);
+						//modifier.modify(geometry);
 					}
 					resource.status = "loaded";
 					DecrementResLoading();
@@ -1401,7 +1402,7 @@ if (window.JoclyXdViewCleanup)
 						}
 						g.computeVertexNormals();
 						g.computeFaceNormals();
-						g.applyMatrix(new THREE.Matrix4().makeScale( options.scale[0], options.scale[2], options.scale[1] ) );						
+						g.applyMatrix4(new THREE.Matrix4().makeScale( options.scale[0], options.scale[2], options.scale[1] ) );						
 					}*/
 				}
 			}
@@ -3475,7 +3476,7 @@ if (window.JoclyXdViewCleanup)
 			light: light,
 			skyLight: skylight,
 			ambientLight: ambientLight,
-			loader: new THREE.JSONLoader(),
+			loader: new LegacyJSONLoader(),
 			camera: camera,
 			cameraControls: cameraControls,
 			animateCallbacks: animateCallbacks,

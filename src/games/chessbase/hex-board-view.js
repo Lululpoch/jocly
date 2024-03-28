@@ -113,16 +113,23 @@
 			
 			var matrix = new THREE.Matrix4();
 			matrix.makeRotationX(-Math.PI/2)
-			geo.applyMatrix(matrix);
+			geo.applyMatrix4(matrix);
 			
-			var uvs=geo.faceVertexUvs[0];
-			for (var u = 0 ; u < uvs.length ; u++){
-				for (var i = 0 ; i < uvs[u].length ; i++){
-					if(cSize.ratio<1)
-						uvs[u][i].x=uvs[u][i].x*cSize.ratio+(1-cSize.ratio)/2;
-					if(cSize.ratio>1)
-						uvs[u][i].y=uvs[u][i].y/cSize.ratio+(1-1/cSize.ratio)/2;
+			if (!geo.attributes.uv) {
+				console.warn("geometry has no UVs.");
+			}else{
+				const uvs = geo.attributes.uv.array;
+				const cSizeRatio = cSize.ratio; 
+
+				for (let i = 0; i < uvs.length; i += 2) {
+					if (cSizeRatio < 1) {
+						uvs[i] = uvs[i] * cSizeRatio + (1 - cSizeRatio) / 2;
+					}
+					if (cSizeRatio > 1) {
+						uvs[i + 1] = uvs[i + 1] / cSizeRatio + (1 - 1 / cSizeRatio) / 2;
+					}
 				}
+				geo.attributes.uv.needsUpdate = true;
 			}
 			callback(geo);
 		},
@@ -194,7 +201,7 @@
 			
 			var matrix = new THREE.Matrix4();
 			matrix.makeRotationX(-Math.PI/2)
-			frameGeo.applyMatrix(matrix);
+			frameGeo.applyMatrix4(matrix);
 			
             blackMat = new THREE.MeshPhongMaterial({
                 color: '#000000',

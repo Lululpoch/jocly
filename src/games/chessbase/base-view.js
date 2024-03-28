@@ -30,7 +30,7 @@
 	// useful to initialize pieces and board while the real meshes aren't loaded yet
 	View.Game.cbMakeDummyMesh = function(xdv) {
 		if(typeof THREE != "undefined")
-		    return new THREE.Mesh( new THREE.CubeGeometry( .0001, .0001, .0001 ), 
+		    return new THREE.Mesh( new THREE.BoxGeometry( .0001, .0001, .0001 ), 
 					      new THREE.MeshLambertMaterial() );
 		else
 			return null;
@@ -1000,7 +1000,7 @@
 		"default": {
 			mesh: {
 				jsFile: function(spec,callback) {
-					callback(new THREE.CubeGeometry(1,1,1),new THREE.MeshPhongMaterial({}));
+					callback(new THREE.BoxGeometry(1,1,1),new THREE.MeshPhongMaterial({}));
 				},
 				smooth: 0,
 				rotateZ: 0,
@@ -1055,7 +1055,7 @@
 					if(!geo._cbZRotated) {
 						var matrix = new THREE.Matrix4();
 						matrix.makeRotationY(spec.mesh.rotateZ*Math.PI/180)
-						geo.applyMatrix(matrix);
+						geo.applyMatrix4(matrix);
 						geo._cbZRotated=true;
 					}
 					geometry=geo;

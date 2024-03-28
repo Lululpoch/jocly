@@ -476,7 +476,7 @@ THREE.Projector = function () {
 
 					}
 
-				} else if ( geometry instanceof THREE.Geometry ) {
+				} else if ( geometry instanceof THREE.BufferGeometry ) {
 
 					var vertices = geometry.vertices;
 					var faces = geometry.faces;
@@ -648,7 +648,7 @@ THREE.Projector = function () {
 
 					}
 
-				} else if ( geometry instanceof THREE.Geometry ) {
+				} else if ( geometry instanceof THREE.BufferGeometry ) {
 
 					_modelViewProjectionMatrix.multiplyMatrices( _viewProjectionMatrix, _modelMatrix );
 

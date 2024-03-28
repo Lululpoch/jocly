@@ -20,7 +20,7 @@
 	// useful to initialize pieces and board while the real meshes aren't loaded yet
 	View.Game.millsMakeDummyMesh = function(xdv) {
 		if(typeof THREE != "undefined")
-		    return new THREE.Mesh( new THREE.CubeGeometry( .001,.001,.001 ), 
+		    return new THREE.Mesh( new THREE.BoxGeometry( .001,.001,.001 ), 
 					      new THREE.MeshLambertMaterial() );
 		else
 			return null;
@@ -350,7 +350,7 @@
 			
 			var matrix = new THREE.Matrix4();
 			matrix.makeRotationX(-Math.PI/2)
-			frameGeo.applyMatrix(matrix);
+			frameGeo.applyMatrix4(matrix);
 			var frameColor="#000000";
 			if (avatar.options.frameColorFill) frameColor=avatar.options.frameColorFill;
 			frameMat = new THREE.MeshPhongMaterial({
@@ -573,7 +573,7 @@
 						function(starSprite){
 							for(var i=0;i<catCount;i++) {
 								var material = new THREE.PointsMaterial( { size: 1-i/catCount, map: starSprite, blending: THREE.AdditiveBlending,  depthTest: true, transparent : true } );
-								var geometry = new THREE.Geometry();
+								var geometry = new THREE.BufferGeometry();
 								material.color.setHex( 0xffffff );
 								var particles = new THREE.Points( geometry, material);
 								partSys.push({
