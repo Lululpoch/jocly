@@ -140,7 +140,8 @@
 
 						textureDiff.needsUpdate = true;
 						textureBump.needsUpdate = true;
-						$this.g.pieceMaterial = new THREE.MultiMaterial([new THREE.MeshPhongMaterial({ 
+						// $this.g.pieceMaterial = new THREE.MultiMaterial([new THREE.MeshPhongMaterial({
+						$this.g.pieceMaterial = ([new THREE.MeshPhongMaterial({ 
 								name: "Material",
 						 		specular:"#111111",
 						 		shininess:10,

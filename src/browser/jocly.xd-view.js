@@ -1699,7 +1699,8 @@ if (window.JoclyXdViewCleanup)
 					for (var m = 0; m < materials.length; m++) {
 						materials[m].shading = THREE.FlatShading;
 					}
-				var mesh = new THREE.Mesh(geometry, new THREE.MultiMaterial(materials));
+				//var mesh = new THREE.Mesh(geometry, new THREE.MultiMaterial(materials));
+				var mesh = new THREE.Mesh(geometry, materials);
 				$this.objectReady(mesh);
 				if ($this.meshFileForceDisplay) {
 					$this.displayObject3D(true, $this.meshFileForceDisplay);

@@ -486,7 +486,15 @@ THREE.Projector = function () {
 
 					var material = object.material;
 
-					var isFaceMaterial = material instanceof THREE.MultiMaterial;
+					// var isFaceMaterial = material instanceof THREE.MultiMaterial;
+					//checking that material is an array of Material
+					var isFaceMaterial
+					if (Array.isArray(material)) {
+						isFaceMaterial = material.every(mat => mat instanceof THREE.Material);
+					} else {
+						isFaceMaterial = false;
+					}
+					
 					var objectMaterials = isFaceMaterial === true ? object.material : null;
 
 					for ( var v = 0, vl = vertices.length; v < vl; v ++ ) {

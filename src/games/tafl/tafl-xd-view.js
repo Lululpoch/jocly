@@ -224,7 +224,8 @@
 	 					}
 
 
-						var board = new THREE.Mesh( geometry , new THREE.MultiMaterial(materials0));	
+						// var board = new THREE.Mesh( geometry , new THREE.MultiMaterial(materials0));
+						var board = new THREE.Mesh( geometry , materials0);	
 						//board.overdraw = true;
 					      
 	  					callback(board);
@@ -440,7 +441,8 @@
 	 					}
 
 
-						var piece = new THREE.Mesh( geometry , new THREE.MultiMaterial(materials0));	
+						// var piece = new THREE.Mesh( geometry , new THREE.MultiMaterial(materials0));
+						var piece = new THREE.Mesh( geometry , materials0);
 						//board.overdraw = true;
 					      
 	  					callback(piece);
