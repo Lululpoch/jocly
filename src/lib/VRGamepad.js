@@ -175,7 +175,8 @@ function VRGamepads(opts) {
         }
 
         this.getPointer = function() {
-            var position = this.getWorldPosition();
+            var position = new THREE.Vector3();
+            this.getWorldPosition(position);
             if(gamepad.pose && gamepad.pose.hasOrientation) {
                 var line = this.pointerObject;
                 var pos0 = new THREE.Vector3(0,0,0);
