@@ -293,12 +293,12 @@ if (window.JoclyXdViewCleanup)
 					if (logResourcesLoad)
 						console.log("Loaded", res);
 
+					/*
 					// not sure of the side effects here but this removes the console
 					// warnings "THREE.DirectGeometry.fromGeometry(): Undefined vertexUv"
-					/*
-
-					#UPGRADEISSUE removed, is it necessary with BufferGeometry?
-
+					
+					// #UPGRADEISSUE removed, is it necessary with BufferGeometry?
+					
 					for (var i = 0; i < geometry.faceVertexUvs.length; i++) {
 						for (var j = 0; j < geometry.faceVertexUvs[i].length; j++) {
 							var uv = geometry.faceVertexUvs[i][j];
@@ -308,7 +308,7 @@ if (window.JoclyXdViewCleanup)
 						for (; j < geometry.faces.length; j++)
 							geometry.faceVertexUvs[i].push([{ x: 0, y: 0 }, { x: 0, y: 0 }, { x: 0, y: 0 }]);
 					}*/
-
+					
 					if (smooth > 0) {
 						console.log("#UPGRADEISSUE Subdividing", smooth, "times"); // #UPGRADEISSUE: avoid subdivision
 						//var modifier = new THREE.SubdivisionModifier(smooth);
@@ -1742,7 +1742,7 @@ if (window.JoclyXdViewCleanup)
 				makeMesh: function (videoTexture, ccvVideoTexture) {
 					var material = new THREE.MeshBasicMaterial({
 						map: videoTexture,
-						overdraw: true,
+						// overdraw: true,
 						// side:THREE.DoubleSide
 					});
 					var geometry = new THREE.PlaneGeometry(12, 9, 1, 1);
@@ -2210,7 +2210,7 @@ if (window.JoclyXdViewCleanup)
 				makeMesh: function (videoTexture) {
 					var material = new THREE.MeshBasicMaterial({
 						map: videoTexture,
-						overdraw: true,
+						// overdraw: true,
 					});
 					var geometry = new THREE.PlaneGeometry(this.options.width * this.SCALE3D, this.options.height * this.SCALE3D, 1, 1);
 					var mesh = new THREE.Mesh(geometry, material);

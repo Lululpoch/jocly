@@ -502,7 +502,7 @@ TWEEN= typeof TWEEN=="undefined" ? { Easing: { Cubic: {}, Quartic: {}, } } : TWE
                     if (materials[i].name=="screen"){
 	 					var mat=materials[i].clone();
  						mat.map=videoTexture;
- 						mat.overdraw = true;
+ 						// mat.overdraw = true;
  						//mat.side = THREE.DoubleSide;
  						materials0.push(mat);
  					}else{

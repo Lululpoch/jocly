@@ -6,8 +6,9 @@ class LegacyJSONLoader extends THREE.Loader {
 
 	load(url, onLoad, onProgress, onError) {
 		var scope = this;
-
-		var path = (this.path === undefined) ? THREE.LoaderUtils.extractUrlBase(url) : this.path;
+		// #UPGRADEISSUE this.path is not undefined but an empty string
+		// var path = (this.path === undefined) ? THREE.LoaderUtils.extractUrlBase(url) : this.path;
+		var path = (this.path === "") ? THREE.LoaderUtils.extractUrlBase(url) : this.path;
 
 		var loader = new THREE.FileLoader(this.manager);
 		loader.setPath(this.path);

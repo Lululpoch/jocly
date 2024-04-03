@@ -2,21 +2,26 @@ third-party/LegacyJSONLoader-r99.js:
 	added the initMaterial and createMaterial (methods from r99) to allow material import from json files
 	removed the part with "Loader.Handlers" which no longer exists
 	added "THREE." before some constants' name
+	replaced "path === undefined" by "path === """ to get the right path to the resources
 
 src/browser/jocly.xd-view.js:
 	gave the array of materials instead of a new MultiMaterial instance which no longer exists
+	removed "overdraw" attribute which no longer exists
 
 src/games/checkers/checkers-xd-view.js:
 	replaced MultiMaterial instances with simple Material arrays
+	removed "overdraw" attribute which no longer exists
 
 src/games/chessbase/base-view.js:
 	replaced MultiMaterial instances with simple Material arrays
 
 src/games/fourinarow/fiarbase-xd-view.js:
 	replaced MultiMaterial instances with simple Material arrays
+	removed "overdraw" attribute which no longer exists
 
 src/games/hunt/hunt-xd-view.js:
 	replaced MultiMaterial instances with simple Material arrays
+	removed "overdraw" attribute which no longer exists
 
 src/games/mana/mana-xd-view.js:
 	replaced MultiMaterial instances with simple Material arrays
@@ -26,18 +31,21 @@ src/games/margo/spbase-xd-view.js:
 
 src/games/mills/mills-xd-view.js:
 	replaced MultiMaterial instances with simple Material arrays
+	removed "overdraw" attribute which no longer exists
 
 src/games/reversi/reversi-xd-view.js:
 	replaced MultiMaterial instances with simple Material arrays
 
 src/games/scrum/scrum-xd-view.js:
 	replaced MultiMaterial instances with simple Material arrays
+	removed "overdraw" attribute which no longer exists
 
 src/games/tafl/tafl-xd-view.js:
 	replaced MultiMaterial instances with simple Material arrays
 
 src/games/yohoho/yohoho-xd-view.js:
 	replaced MultiMaterial instances with simple Material arrays
+	removed "overdraw" attribute which no longer exists
 
 third-party/Projector.js:
 	isinstanceof THREE.MultiMaterial was called in the code, a verification is now made to verify that the "material" variable is an array of THREE.Material
