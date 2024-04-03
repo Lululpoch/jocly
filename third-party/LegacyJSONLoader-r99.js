@@ -567,6 +567,8 @@ class LegacyJSONLoader extends THREE.Loader {
 			function loadTexture( path, repeat, offset, wrap, anisotropy ) {
 
 				var fullPath = texturePath + path;
+				// #UPGRADEISSUE Loader.Handlers does not exist anymore
+				/*
 				var loader = Loader.Handlers.get( fullPath );
 
 				var texture;
@@ -581,13 +583,18 @@ class LegacyJSONLoader extends THREE.Loader {
 					texture = textureLoader.load( fullPath );
 
 				}
+				*/
+				var texture;
+
+				textureLoader.setCrossOrigin( crossOrigin );
+				texture = textureLoader.load( fullPath );
 
 				if ( repeat !== undefined ) {
 
 					texture.repeat.fromArray( repeat );
 
-					if ( repeat[ 0 ] !== 1 ) texture.wrapS = RepeatWrapping;
-					if ( repeat[ 1 ] !== 1 ) texture.wrapT = RepeatWrapping;
+					if ( repeat[ 0 ] !== 1 ) texture.wrapS = THREE.RepeatWrapping;
+					if ( repeat[ 1 ] !== 1 ) texture.wrapT = THREE.RepeatWrapping;
 
 				}
 
@@ -599,11 +606,11 @@ class LegacyJSONLoader extends THREE.Loader {
 
 				if ( wrap !== undefined ) {
 
-					if ( wrap[ 0 ] === 'repeat' ) texture.wrapS = RepeatWrapping;
-					if ( wrap[ 0 ] === 'mirror' ) texture.wrapS = MirroredRepeatWrapping;
+					if ( wrap[ 0 ] === 'repeat' ) texture.wrapS = THREE.RepeatWrapping;
+					if ( wrap[ 0 ] === 'mirror' ) texture.wrapS = THREE.MirroredRepeatWrapping;
 
-					if ( wrap[ 1 ] === 'repeat' ) texture.wrapT = RepeatWrapping;
-					if ( wrap[ 1 ] === 'mirror' ) texture.wrapT = MirroredRepeatWrapping;
+					if ( wrap[ 1 ] === 'repeat' ) texture.wrapT = THREE.RepeatWrapping;
+					if ( wrap[ 1 ] === 'mirror' ) texture.wrapT = THREE.MirroredRepeatWrapping;
 
 				}
 
