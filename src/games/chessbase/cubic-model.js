@@ -129,7 +129,7 @@
 			
 			evaluate: function(aGame,evalValues,material) {
 				
-				return;
+				//return;
 				
 				// check lack of material to checkmate
 				var white=material[1].count;
@@ -196,6 +196,8 @@
 				if(minorPiecesMoved!=0) {
 					evalValues['minorPiecesMoved']=minorPiecesMoved;
 				}
+
+				return;
 			},
 			
 		};

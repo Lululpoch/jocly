@@ -75,7 +75,7 @@
 				rotate: 135,
 				rotateX: -60,
 				create: function() {
-					
+					/*
 					var graphGeometry = new THREE.SphereGeometry( 40 , 50, 50 );
 					var material = new THREE.MeshBasicMaterial( { 
 				        color: 0x00ff00, 
@@ -102,10 +102,10 @@
 						color = new THREE.Color( 0x000000 );
 						//color.setHSL( 0.7 * (zMax - point.z) / zRange, 1, 0.5 );
 						
-						/*var delta=(zMax - point.z)/zRange;
-						color.b = 1+delta;
-						color.g = 0.5+0.3*delta;
-						color.r = 0.2*delta;*/
+						//var delta=(zMax - point.z)/zRange;
+						//color.b = 1+delta;
+						//color.g = 0.5+0.3*delta;
+						//color.r = 0.2*delta;
 
 						var delta=(zMax - point.z)/zRange;
 						color.b = 1+delta;
@@ -128,6 +128,34 @@
 							face.vertexColors[ j ] = graphGeometry.colors[ vertexIndex ];
 						}
 					}
+					*/
+
+					var graphGeometry = new THREE.SphereGeometry( 40 , 50, 50 );
+
+					///////////////////////////////////////////////
+					// calculate vertex colors based on Z values //
+					///////////////////////////////////////////////
+					graphGeometry.computeBoundingBox();
+					zMin = graphGeometry.boundingBox.min.z;
+					zMax = graphGeometry.boundingBox.max.z;
+					zRange = zMax - zMin;
+					var currentZ, color
+					let colors = [];
+
+					for ( var i = 0; i < graphGeometry.attributes.position.array.length /3; i++ ) 
+					{
+						currentZ = graphGeometry.attributes.position.array[3 *i +2];	//the z coordinate of each vertex
+						color = new THREE.Color();
+						
+						var delta=(zMax - currentZ)/zRange;
+						color.b = 1+delta;
+						color.g = 0.5+0.4*delta;
+						color.r = 0.3*delta;
+						
+						colors.push(color);
+					}
+
+					graphGeometry.setAttribute('color', new THREE.Float32BufferAttribute(new Float32Array(colors.flat()), 3));
 					///////////////////////
 					// end vertex colors //
 					///////////////////////

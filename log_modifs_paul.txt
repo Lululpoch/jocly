@@ -28,10 +28,15 @@ src/games/mana/mana-xd-view.js:
 
 src/games/margo/spbase-xd-view.js:
 	replaced MultiMaterial instances with simple Material arrays
+	rewrote the code for defining vertices color (SphereGeometry is now a BufferGeometry)
 
 src/games/mills/mills-xd-view.js:
 	replaced MultiMaterial instances with simple Material arrays
 	removed "overdraw" attribute which no longer exists
+	rewrote the code for defining vertices color (SphereGeometry is now a BufferGeometry)
+	changed wireMaterial.vertexColors value from "THREE.VertexColors" (which seems to be deprecated) to "true" 
+	rewrote the code to add the vertices to "catObj.geometry"
+
 
 src/games/reversi/reversi-xd-view.js:
 	replaced MultiMaterial instances with simple Material arrays
@@ -49,3 +54,6 @@ src/games/yohoho/yohoho-xd-view.js:
 
 third-party/Projector.js:
 	isinstanceof THREE.MultiMaterial was called in the code, a verification is now made to verify that the "material" variable is an array of THREE.Material
+
+src/games/chessbase/cubic-model.js:
+	moved the return statement at the end of the code of the "evaluate" function to deal with warning, don't know why it was at the begining of the function
