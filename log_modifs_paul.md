@@ -1,0 +1,63 @@
+#### third-party/**LegacyJSONLoader-r99**.js:  
+- *added* the initMaterial and createMaterial (methods from r99) to allow material import from json files  
+- *removed* the part with "Loader.Handlers" which no longer exists  
+- *added* "THREE." before some constants' name  
+- *replaced* "path === undefined" by "path === """ to get the right path to the resources  
+  
+#### src/browser/**jocly.xd-view**.js:  
+- gave the array of materials instead of a new MultiMaterial instance which no longer exists  
+- *removed* "overdraw" attribute which no longer exists  
+  
+#### src/games/checkers/**checkers-xd-view**.js:  
+- *replaced* MultiMaterial instances with simple Material arrays  
+- *removed* "overdraw" attribute which no longer exists  
+- *removed* iteration on geometry.faces in createPiece function  
+- *replaced* the call to geometry.vertices  
+  
+#### src/games/chessbase/**base-view**.js:  
+- *replaced* MultiMaterial instances with simple Material arrays  
+  
+#### src/games/fourinarow/**fiarbase-xd-view**.js:  
+- *replaced* MultiMaterial instances with simple Material arrays  
+- *removed* "overdraw" attribute which no longer exists  
+  
+#### src/games/hunt/**hunt-xd-view**.js:  
+- *replaced* MultiMaterial instances with simple Material arrays  
+- *removed* "overdraw" attribute which no longer exists  
+  
+#### src/games/mana/**mana-xd-view**.js:  
+- *replaced* MultiMaterial instances with simple Material arrays  
+  
+#### src/games/margo/**spbase-xd-view**.js:  
+- *replaced* MultiMaterial instances with simple Material arrays  
+- *rewrote* the code for defining vertices color (SphereGeometry is now a BufferGeometry)  
+- *removed* iteration on geometry.faces in create function  
+- *replaced* "THREE.VertexColors" with "true"  
+  
+#### src/games/mills/**mills-xd-view**.js:  
+- *replaced* MultiMaterial instances with simple Material arrays  
+- *removed* "overdraw" attribute which no longer exists  
+- *rewrote* the code for defining vertices color (SphereGeometry is now a BufferGeometry)  
+- changed wireMaterial.vertexColors value from "THREE.VertexColors" (which seems to be deprecated) to "true"   
+- *rewrote* the code to add the vertices to "catObj.geometry"  
+  
+  
+#### src/games/reversi/**reversi-xd-view**.js:  
+- *replaced* MultiMaterial instances with simple Material arrays  
+  
+#### src/games/scrum/**scrum-xd-view**.js:  
+- *replaced* MultiMaterial instances with simple Material arrays  
+- *removed* "overdraw" attribute which no longer exists  
+  
+#### src/games/tafl/**tafl-xd-view**.js:  
+- *replaced* MultiMaterial instances with simple Material arrays  
+  
+#### src/games/yohoho/**yohoho-xd-view**.js:  
+- *replaced* MultiMaterial instances with simple Material arrays  
+- *removed* "overdraw" attribute which no longer exists  
+  
+#### third-party/**Projector**.js:  
+- isinstanceof THREE.MultiMaterial was called in the code, a verification is now made to verify that the "material" variable is an array of THREE.Material  
+  
+#### src/games/chessbase/**cubic-model**.js:  
+- moved the return statement at the end of the code of the "evaluate" function to deal with warning, don't know why it was at the begining of the function

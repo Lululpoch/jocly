@@ -169,7 +169,7 @@
 				rotate: 135,
 				rotateX: -60,
 				create: function() {
-					
+					/*
 					var graphGeometry = new THREE.SphereGeometry( 40 , 50, 50 );
 					var material = new THREE.MeshBasicMaterial( { 
 				        color: 0x00ff00, 
@@ -194,9 +194,9 @@
 						color = new THREE.Color( 0x000000 );
 						
 						var delta=(zMax - point.z)/zRange;
-						/*color.b = 1+delta;
-						color.g = 0.5+0.4*delta;
-						color.r = 0.3*delta;*/
+						// color.b = 1+delta;
+						// color.g = 0.5+0.4*delta;
+						// color.r = 0.3*delta;
 						color.g = color.b = color.r = delta/6;
 						
 						graphGeometry.colors[i] = color; // use this array for convenience
@@ -212,6 +212,36 @@
 							face.vertexColors[ j ] = graphGeometry.colors[ vertexIndex ];
 						}
 					}
+					*/
+
+					var graphGeometry = new THREE.SphereGeometry( 40 , 50, 50 );
+
+					///////////////////////////////////////////////
+					// calculate vertex colors based on Z values //
+					///////////////////////////////////////////////
+					graphGeometry.computeBoundingBox();
+					zMin = graphGeometry.boundingBox.min.z;
+					zMax = graphGeometry.boundingBox.max.z;
+					zRange = zMax - zMin;
+					var currentZ, color
+					let colors = [];
+
+					for ( var i = 0; i < graphGeometry.attributes.position.array.length /3; i++ ) 
+					{
+						currentZ = graphGeometry.attributes.position.array[3 *i +2];	//the z coordinate of each vertex
+						color = new THREE.Color();
+						
+						var delta=(zMax - currentZ)/zRange;
+						// color.b = 1+delta;
+						// color.g = 0.5+0.4*delta;
+						// color.r = 0.3*delta;
+						color.g = color.b = color.r = delta/6;
+						
+						colors.push(color);
+					}
+
+					graphGeometry.setAttribute('color', new THREE.Float32BufferAttribute(new Float32Array(colors.flat()), 3));
+
 					///////////////////////
 					// end vertex colors //
 					///////////////////////
@@ -224,7 +254,8 @@
 						function(wireTexture){
 							wireTexture.wrapS = wireTexture.wrapT = THREE.RepeatWrapping; 
 							wireTexture.repeat.set( 40, 40 );
-							var wireMaterial = new THREE.MeshBasicMaterial( { map: wireTexture, vertexColors: THREE.VertexColors, side:THREE.DoubleSide } );
+							// var wireMaterial = new THREE.MeshBasicMaterial( { map: wireTexture, vertexColors: THREE.VertexColors, side:THREE.DoubleSide } );
+							var wireMaterial = new THREE.MeshBasicMaterial( { map: wireTexture, vertexColors: true, side:THREE.DoubleSide } );
 	
 							wireMaterial.map.repeat.set( 20, 60 );
 							
@@ -585,6 +616,7 @@
 								container.add(particles)
 							}
 							$this.getResource("json2|"+fullPath + "/res/xd-view/meshes/starsdb.json",function(data) {
+								var array = []
 								for(var i=0;i<data.length;i++) {
 									var star=data[i];
 									var r=30;
@@ -596,8 +628,15 @@
 									vertex.y = r*Math.sin(elev);
 									var cat=Math.floor(i*catCount/data.length);
 									var catObj=partSys[cat];
-									catObj.geometry.vertices.push( vertex );					
+									//catObj.geometry.vertices.push( vertex );
+
+									array.push( vertex.x, vertex.y, vertex.z )
 								}
+								if (catObj.geometry.attributes.position === undefined)
+								{
+									catObj.geometry.setAttribute('position', new THREE.Float32BufferAttribute(new Float32Array(array), 3))
+								}
+								
 								$this.objectReady(container);						
 							});
 					});															
