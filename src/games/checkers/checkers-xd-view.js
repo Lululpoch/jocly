@@ -586,22 +586,26 @@
 					scale: [scaleFactor,scaleFactor,scaleFactor],
 					//opacity: opacity,
 					create: function() {
-						var shininess = 500, specular = 0x050505, bumpScale = 0.005, shading = THREE.SmoothShading, transparent=false, opacity=1;
+						var shininess = 500, specular = 0x050505, bumpScale = 0.005, flatShading = false, transparent=false, opacity=1;
 						var sphereMaterial = new THREE.MeshPhongMaterial( {
 							name: "ball",
 							specular: specular,
 							shininess: shininess,
-							shading: shading,
+							flatShading: flatShading,
 							opacity: opacity,
 							transparent: transparent,
 							envMap: textureCube,
 							reflectivity: 0.2,
-							combine: THREE.MixOperation, 
+							combine: THREE.MixOperation
 						} );
 						var geometry = sphereGeometry.clone();
-						for (var i = 0; i < geometry.faces.length; i++) {
+						/*for (var i = 0; i < geometry.faces.length; i++) {
 							geometry.faces[i].materialIndex = 0;
-						}
+						}*/
+						const triangleCount = geometry.index ? geometry.index.count : geometry.attributes.position.count ;
+						geometry.addGroup(0, triangleCount, 0); // set material index for all triangles to 0
+						console.log("material idx set, alquerque3d",side, triangleCount);
+
 						// var sphere = new THREE.Mesh(geometry,new THREE.MultiMaterial( [sphereMaterial] ));
 						var sphere = new THREE.Mesh(geometry,[sphereMaterial] );
 						return sphere;

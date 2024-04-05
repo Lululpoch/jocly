@@ -223,10 +223,13 @@
 	 						materials0.push(mat);
 	 					}
 
+						 geometry.computeBoundingBox();
+						 console.log("size board bounding box",geometry.boundingBox);
 
 						// var board = new THREE.Mesh( geometry , new THREE.MultiMaterial(materials0));
 						var board = new THREE.Mesh( geometry , materials0);	
 						//board.overdraw = true;
+
 					      
 	  					callback(board);
 					});			

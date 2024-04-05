@@ -1695,9 +1695,9 @@ if (window.JoclyXdViewCleanup)
 				for (var i = 0; i < materials.length; i++)
 					materials0.push(materials[i].clone());
 				materials = materials0;
-				if ($this.options.flatShading)
+				if ($this.options.flatShading !== undefined)
 					for (var m = 0; m < materials.length; m++) {
-						materials[m].shading = THREE.FlatShading;
+						materials[m].flatShading = $this.options.flatShading;
 					}
 				//var mesh = new THREE.Mesh(geometry, new THREE.MultiMaterial(materials));
 				var mesh = new THREE.Mesh(geometry, materials);
@@ -3244,7 +3244,8 @@ if (window.JoclyXdViewCleanup)
 		harbor.add(light);
 
 		var skylight = new THREE.PointLight(0xcccccc, 2, 150);//, Math.PI/5, 10);
-		skylight.position.set(-45, 45, 45);
+		skylight.position.set(-5, 5, 5);
+		skylight.decay = 8;
 		harbor.add(skylight);
 
 		//light.shadowCameraVisible = false;
@@ -3265,6 +3266,10 @@ if (window.JoclyXdViewCleanup)
 		renderer.shadowMapSoft = true;
 		//renderer.physicallyBasedShading = true; // gives high level of shininess specular
 		//renderer.shadowMapCascade = true;
+
+		renderer.useLegacyLights = true;
+		renderer.toneMapping = THREE.NoToneMapping; // Par exemple
+
 
 		var stereo = false;
 		var stereoEffect = new THREE.StereoEffect(renderer);
