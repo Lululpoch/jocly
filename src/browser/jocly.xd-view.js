@@ -3266,6 +3266,8 @@ if (window.JoclyXdViewCleanup)
 		//renderer.physicallyBasedShading = true; // gives high level of shininess specular
 		//renderer.shadowMapCascade = true;
 
+		renderer.useLegacyLights = true ;
+
 		var stereo = false;
 		var stereoEffect = new THREE.StereoEffect(renderer);
 		stereoEffect.setSize(area.width(), area.height());

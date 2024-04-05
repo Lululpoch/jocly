@@ -11,6 +11,8 @@ src/browser/jocly.xd-view.js:
 src/games/checkers/checkers-xd-view.js:
 	replaced MultiMaterial instances with simple Material arrays
 	removed "overdraw" attribute which no longer exists
+	removed iteration on geometry.faces in createPiece function
+	replaced the call to geometry.vertices
 
 src/games/chessbase/base-view.js:
 	replaced MultiMaterial instances with simple Material arrays
@@ -29,6 +31,8 @@ src/games/mana/mana-xd-view.js:
 src/games/margo/spbase-xd-view.js:
 	replaced MultiMaterial instances with simple Material arrays
 	rewrote the code for defining vertices color (SphereGeometry is now a BufferGeometry)
+	removed iteration on geometry.faces in create function
+	replaced "THREE.VertexColors" with "true"
 
 src/games/mills/mills-xd-view.js:
 	replaced MultiMaterial instances with simple Material arrays

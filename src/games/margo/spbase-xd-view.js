@@ -169,7 +169,8 @@
 						function(wireTexture){
 							wireTexture.wrapS = wireTexture.wrapT = THREE.RepeatWrapping; 
 							wireTexture.repeat.set( 40, 40 );
-							var wireMaterial = new THREE.MeshBasicMaterial( { map: wireTexture, vertexColors: THREE.VertexColors, side:THREE.DoubleSide } );
+							//var wireMaterial = new THREE.MeshBasicMaterial( { map: wireTexture, vertexColors: THREE.VertexColors, side:THREE.DoubleSide } );
+							var wireMaterial = new THREE.MeshBasicMaterial( { map: wireTexture, vertexColors: true, side:THREE.DoubleSide } );
 	
 							wireMaterial.map.repeat.set( 20, 60 );
 							
@@ -225,7 +226,7 @@
 			});
 			return null;
 		};
-		xdv.createGadget("videoa",{
+ 		xdv.createGadget("videoa",{
 			"3d": {
 				type : "video3d",
 				makeMesh: function(videoTexture){
@@ -243,7 +244,6 @@
 		});
 		
 
-		/*
 		for(var pos=0; pos<this.g.Coord.length;pos++) {
 			(function(pos) {
 				xdv.createGadget("text#"+pos, {
@@ -284,7 +284,6 @@
 				//var sphereMaterial = new THREE.MeshPhongMaterial( { color: 0xff0000 } );
 			})(pos);
 		}
-		*/
 
 		xdv.createGadget("board", {
 			"wood" : {
@@ -422,9 +421,12 @@
 	                           	    //combine: THREE.MultiplyOperation,
 	                        } );
 	                        var geometry=sphereGeometry.clone();
+							// #UPGRADEISSUE not runnable anymore but maybe unnecessary ?
+							/*
 	                        for(var i=0;i<geometry.faces.length;i++) {
 	                        	geometry.faces[i].materialIndex=0;
 	                        }
+							*/
 	                        // var sphere = new THREE.Mesh(geometry,new THREE.MultiMaterial( [sphereMaterial] ));
 							var sphere = new THREE.Mesh(geometry,[sphereMaterial] );
 	                        return sphere;

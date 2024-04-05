@@ -599,9 +599,12 @@
 							combine: THREE.MixOperation, 
 						} );
 						var geometry = sphereGeometry.clone();
+						// #UPGRADEISSUE not runnable anymore but maybe unnecessary ?
+						/*
 						for (var i = 0; i < geometry.faces.length; i++) {
 							geometry.faces[i].materialIndex = 0;
 						}
+						*/
 						// var sphere = new THREE.Mesh(geometry,new THREE.MultiMaterial( [sphereMaterial] ));
 						var sphere = new THREE.Mesh(geometry,[sphereMaterial] );
 						return sphere;
@@ -1073,6 +1076,9 @@
 								for(var i=0;i<catCount;i++) {
 									var material = new THREE.PointsMaterial( { size: 0.5, map: starSprite, blending: THREE.NormalBlending,  depthTest: true, transparent : true } );
 									var geometry = new THREE.BufferGeometry();
+
+									let array = []
+
 									for(var i=0;i<1000;i++) {
 										var vertex = new THREE.Vector3();
 										var r=12+Math.random()*40;
@@ -1080,8 +1086,16 @@
 										vertex.x = r*Math.cos(a);
 										vertex.z = r*Math.sin(a);
 										vertex.y = 0.2;
-										geometry.vertices.push( vertex );
+										//geometry.vertices.push( vertex );
+
+										array.push(vertex.x, vertex.y, vertex.z)
 									}
+
+									if (geometry.attributes.position === undefined)
+									{
+										geometry.setAttribute('position', new THREE.Float32BufferAttribute(new Float32Array(array), 3))
+									}
+
 									material.color.setHex( 0xffffff );
 									var particles = new THREE.Points( geometry, material);
 									
