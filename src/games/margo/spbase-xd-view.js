@@ -208,11 +208,11 @@
  						materials0.push(mat);
                     }else if (materials[i].name=="boomer"){
 	 					var mat=materials[i].clone();
-	 					mat.shading=THREE.FlatShading;
+	 					mat.flatShading=true;
 	 					materials0.push(mat);
                     }else if (materials[i].name=="tv"){
 	 					var mat=materials[i].clone();
-	 					mat.shading=THREE.FlatShading;
+	 					mat.flatShading=true;
 	 					materials0.push(mat);
  					}else{
  						materials0.push(materials[i]);

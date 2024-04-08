@@ -486,13 +486,13 @@
                                     avatar.getMaterialMap(matUrl,function(matMap) {
                                         mat.map = matMap;
                                         if (mat.name==="mat.buildings")
-                                            mat.shading=THREE.FlatShading;
+                                            mat.flatShading=true;
                                         materials0[m] = mat;
                                         Done();
                                     });
                                 } else {
                                     if (mat.name==="mat.buildings")
-                                        mat.shading=THREE.FlatShading;
+									mat.flatShading=true;
                                     materials0[m] = mat;
                                     Done();
                                 }
@@ -877,7 +877,7 @@
 					 	var materials0=[];
  						for(var m=0;m<materials.length;m++){
  							var mat=materials[m].clone();
- 							if (mat.name != "mat.slot") mat.shading=THREE.FlatShading;
+ 							if (mat.name != "mat.slot") mat.flatShading=true;
  							materials0.push(mat);
  						}
 
@@ -1207,11 +1207,11 @@
  						materials0.push(mat);
                     }else if (materials[i].name=="boomer"){
 	 					var mat=materials[i].clone();
-	 					mat.shading=THREE.FlatShading;
+	 					mat.flatShading=true;
 	 					materials0.push(mat);
                     }else if (materials[i].name=="tv"){
 	 					var mat=materials[i].clone();
-	 					mat.shading=THREE.FlatShading;
+	 					mat.flatShading=true;
 	 					materials0.push(mat);
  					}else{
  						materials0.push(materials[i]);

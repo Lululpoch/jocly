@@ -423,7 +423,7 @@
  						materials0.push(mat);
                     }else{
 	 					var mat=materials[i].clone();
-	 					mat.shading=THREE.FlatShading;
+	 					mat.flatShading=true;
 	 					materials0.push(mat);
                     }
  				}
