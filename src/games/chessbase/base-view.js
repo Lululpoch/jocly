@@ -857,6 +857,8 @@
 		
 		createMaterial: function(spec,canvas,callback) {
 			var texBoardDiffuse = new THREE.Texture(canvas.diffuse);
+			texBoardDiffuse.colorSpace = THREE.SRGBColorSpace;
+
 			texBoardDiffuse.needsUpdate = true;
 			var matSpec={
 				specular: '#050505',//'#222222',
@@ -980,10 +982,11 @@
 					var callbacks = pieces[aspectKey];
 					pieces[aspectKey] = {
 						geometry: resources.geometry,
-						material: resources.material,
+						material: resources.material
 					}
 					callbacks.forEach(function(callback) {
-						callback(new THREE.Mesh(resources.geometry,resources.material));
+						var p = new THREE.Mesh(resources.geometry,resources.material);
+						callback(p);
 					});
 				});				
 			});
@@ -1215,6 +1218,9 @@
 
 				var phongParams = spec.materials[material].params ;
 				phongParams.map = resources.textures[material]['diffuse'] ;
+
+				phongParams.map.colorSpace = THREE.SRGBColorSpace;
+
 				phongParams.normalMap = resources.textures[material]['normal'] ;
 				var ns = spec.materials[material].channels['normal'].normalScale || 1;
 				phongParams.normalScale = new THREE.Vector2( ns , ns ) ;
@@ -1246,7 +1252,7 @@
 				shininess: 300,
 				specular: "#ffffff",
 				emissive: "#222222",
-				shading: typeof THREE!="undefined"?THREE.FlatShading:0,
+				flatShading: false
 			},
 			makeMaterials: function(spec,resources) {
 				var pieceMat = new THREE.MeshPhongMaterial( spec.phongProperties );
