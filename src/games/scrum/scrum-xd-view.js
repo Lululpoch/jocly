@@ -629,10 +629,11 @@
                     loader.load(fullPath+"/res/xd-view/meshes/scrumfield8x12-3d.jpg",
                         function(diffuseMap) {
                             diffuseMap.wrapS = diffuseMap.wrapT = THREE.RepeatWrapping;
-                            diffuseMap.format = THREE.RGBFormat;
+                            //diffuseMap.format = THREE.RGBFormat;
+							diffuseMap.colorSpace = THREE.SRGBColorSpace;
                             //var gm=new THREE.MeshBasicMaterial({color:0xffffff,side: THREE.DoubleSide});
                             var gm=new THREE.MeshPhongMaterial( {
-                                        color: 0x888888,
+                                        color: 0xffffff,
                                         map: diffuseMap,
                                         shininess:0,
                              } );
@@ -1160,7 +1161,7 @@
 						"ring" : {
 							//shininess : 0,
 							//reflectivity: 0,
-							color : type=="cancel"?0xff4400:0x227700,
+							color : type=="cancel"?0xFF991C:0xccff00,
 							opacity: (showTarget)?1:0,
 							transparent: !showTarget,
 						}
