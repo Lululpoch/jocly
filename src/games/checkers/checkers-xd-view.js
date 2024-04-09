@@ -227,6 +227,7 @@
 			];
 			//textureCube = THREE.ImageUtils.loadTextureCube( urls );
 			textureCube = new THREE.CubeTextureLoader( ).load( urls );
+			textureCube.colorSpace = THREE.SRGBColorSpace;
 		}
 
 		xdv.createGadget("board", {
@@ -586,7 +587,7 @@
 					scale: [scaleFactor,scaleFactor,scaleFactor],
 					//opacity: opacity,
 					create: function() {
-						var shininess = 500, specular = 0x050505, bumpScale = 0.005, flatShading = false, transparent=false, opacity=1;
+						var shininess = 500, specular = 0x888888, bumpScale = 0.005, flatShading = false, transparent=false, opacity=1;
 						var sphereMaterial = new THREE.MeshPhongMaterial( {
 							name: "ball",
 							specular: specular,
@@ -596,7 +597,8 @@
 							transparent: transparent,
 							envMap: textureCube,
 							reflectivity: 0.2,
-							combine: THREE.MixOperation
+							combine: THREE.MixOperation,
+							colorSpace : THREE.SRGBColorSpace
 						} );
 						var geometry = sphereGeometry.clone();
 						/*for (var i = 0; i < geometry.faces.length; i++) {
@@ -792,6 +794,8 @@
 				
 				textureDiff.needsUpdate=true;
 				textureBump.needsUpdate=true;
+
+				textureDiff.colorSpace = THREE.SRGBColorSpace; 
 				
 				var bsp="#010101";
 				if (avatar.options.boardSpecular!==undefined) bsp=avatar.options.boardSpecular;
@@ -877,6 +881,7 @@
 					 	var materials0=[];
  						for(var m=0;m<materials.length;m++){
  							var mat=materials[m].clone();
+							if (mat.map) mat.map.colorSpace = THREE.SRGBColorSpace;
  							if (mat.name != "mat.slot") mat.flatShading=true;
  							materials0.push(mat);
  						}
@@ -1481,6 +1486,8 @@
 								map: aGame.mViewOptions.fullPath+"/res/xd-view/meshes/"+(piece.s===JocGame.PLAYER_A?"red":"black")+(piece.t==0?"":"-king")+".png",
 								reflectivity: (piece.s===JocGame.PLAYER_A)?0.6:0.6, // reflexivities[this.board[pos]],
 								opacity: 1,
+								shininess: 400,
+								roughness: 0
 							},
 						},
 					},
