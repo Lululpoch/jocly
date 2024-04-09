@@ -108,7 +108,7 @@ if (window.JoclyXdViewCleanup)
 	/* ======================================== */
 
 	var WebRTC;
-	var logResourcesLoad = false;
+	var logResourcesLoad = true;
 
 	function Log() {
 		console.info.apply(console, arguments);
@@ -292,6 +292,14 @@ if (window.JoclyXdViewCleanup)
 				function HandleGeoMat(geometry, materials) {
 					if (logResourcesLoad)
 						console.log("Loaded", res);
+
+					if (materials && (materials.length !== undefined)){
+						for(m in materials){
+							if (materials[m].map) {
+								materials[m].map.colorSpace = THREE.SRGBColorSpace;
+							}
+						}
+					}
 
 					/*
 					// not sure of the side effects here but this removes the console
@@ -1447,10 +1455,10 @@ if (window.JoclyXdViewCleanup)
 			) {
 				this.shouldUpdate = true;
 				if (options.morphing.length > 0) {
-					if (this.object3d.material && this.object3d.material.materials &&
-						this.object3d.material.materials.length > 0 && !this.object3d.material.materials[0].morphTargets) {
-						for (var i = 0; i < this.object3d.material.materials.length; i++)
-							this.object3d.material.materials[i].morphTargets = true;
+					if (this.object3d.material &&
+						this.object3d.material.length > 0 && !this.object3d.material[0].morphTargets) {
+						for (var i = 0; i < this.object3d.material.length; i++)
+							this.object3d.material[i].morphTargets = true;
 					}
 					if (delay) {
 						this.animStart(options);
@@ -1466,9 +1474,9 @@ if (window.JoclyXdViewCleanup)
 			}
 			if (this.object3d.material && options.materials) {
 				if (force) {
-					if (this.object3d.material.materials) {
-						for (var m in this.object3d.material.materials) {
-							var mat = $this.object3d.material.materials[m];
+					if (this.object3d.material && this.object3d.material.length !== undefined) {
+						for (var m in this.object3d.material) {
+							var mat = $this.object3d.material[m];
 							if (options.materials[mat.name]) {
 								for (var mpi in options.materials[mat.name]) {
 									var newMatProp = options.materials[mat.name][mpi];
@@ -1476,6 +1484,7 @@ if (window.JoclyXdViewCleanup)
 										if (mpi == "map") {
 											GetMaterialMap(newMatProp, function (matMpi) {
 												mat[mpi] = matMpi;
+												mat[mpi].colorSpace = THREE.SRGBColorSpace;
 												mat.needsUpdate = true;
 											});
 										} else if (mpi == "color") {
@@ -1495,9 +1504,9 @@ if (window.JoclyXdViewCleanup)
 					if (diffMat) {
 						for (var mi in diffMat) {
 							var newMat = diffMat[mi];
-							if (this.object3d.material.materials) {
-								for (var m in this.object3d.material.materials) {
-									var mat = $this.object3d.material.materials[m];
+							if (this.object3d.material) {
+								for (var m in this.object3d.material) {
+									var mat = $this.object3d.material[m];
 									if (mat.name == mi) {
 										if (newMat) {
 											for (var mpi in newMat) {
@@ -1507,6 +1516,7 @@ if (window.JoclyXdViewCleanup)
 														if (mpi == "map")
 															GetMaterialMap(newMatProp, function (matMpi) {
 																mat[mpi] = matMpi;
+																mat[mpi].colorSpace = THREE.SRGBColorSpace;
 																mat.needsUpdate = true;
 															});
 														else if (mpi == "color") {
