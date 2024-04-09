@@ -7,7 +7,7 @@
 	
 	View.Game.cbTargetMesh = "/res/ring-target.js";
 	View.Game.cbTargetSelectColor = 0xffffff;
-	View.Game.cbTargetCancelColor = 0xff8800;
+	View.Game.cbTargetCancelColor = 0xffff00;
 
 	View.Game.cbPromoSize = 2000;
 	
