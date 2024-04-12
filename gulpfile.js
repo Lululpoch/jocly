@@ -336,7 +336,18 @@ gulp.task("build-browser-xdview", function () {
 		src + "browser/jocly.state-machine.js",
 		src + "browser/jocly.xd-view.js",
 		lib + "deprecated-geometry-r125.js",
-		lib + "LegacyJSONLoader-r99.js"
+		lib + "LegacyJSONLoader-r99.js",
+		
+		lib + "three_addons_webxr/XRButton.js",
+		lib + "three_addons_webxr/VRButton.js",
+		lib + "three_addons_webxr/XRControllerModelFactory.js",
+		lib + "three_addons_webxr/XRHandModelFactory.js",
+		lib + "three_addons_webxr/XRHandPrimitiveModel.js",
+		lib + "three_addons_webxr/XRHandMeshModel.js",
+		lib + "three_addons_webxr/motion-controllers.js",
+		lib + "three_addons_loaders/BufferGeometryUtils.js",
+		lib + "three_addons_loaders/GLTFLoader.js",
+		lib + "three_addons_controls/OrbitControls.js"
 	]), "jocly-xdview.js", true);
 
 	return merge(libs, packedLibs)

@@ -3271,6 +3271,179 @@ if (window.JoclyXdViewCleanup)
 		renderer.toneMapping = THREE.NoToneMapping; // Par exemple
 
 
+
+		// #WEBXRADD
+		let controls, hand1, hand2, controller1, controller2, controllerGrip1, controllerGrip2, rayCaster, group
+		const intersected = [];
+		const handModels =
+		{
+			left: null,
+			right: null
+		};
+
+		const sessionInit = {
+			//requiredFeatures: [ 'hand-tracking', 'depth-sensing' ]
+			//requiredFeatures: [ 'hand-tracking', 'local-floor', 'bounded-floor', 'layers' ]
+			//requiredFeatures: [ 'hand-tracking' ]
+			requiredFeatures: []
+		};
+
+		document.body.appendChild( VRButton.createButton(renderer, sessionInit));
+		renderer.xr.enabled = true;
+		
+		//orbit controls
+		controls = new OrbitControls( camera, renderer.domElement );
+		controls.target.set( 0, 2, 0 );
+		controls.update();
+
+		// controllers
+		controller1 = renderer.xr.getController( 0 );
+		scene.add( controller1 );
+		controller2 = renderer.xr.getController( 1 );
+		scene.add( controller2 );
+
+		controllerGrip1 = renderer.xr.getControllerGrip(0);
+		scene.add(controllerGrip1)
+		controllerGrip2 = renderer.xr.getControllerGrip(1);
+		scene.add(controllerGrip2)
+
+		const controllerModelFactory = new XRControllerModelFactory();
+
+		let controller1Model = controllerModelFactory.createControllerModel(controllerGrip1)
+		scene.add(controller1Model)
+		let controller2Model = controllerModelFactory.createControllerModel(controllerGrip2)
+		scene.add(controller2Model)
+
+		const LineGeometry = new THREE.BufferGeometry().setFromPoints( [ new THREE.Vector3( 0, 0, 0 ), new THREE.Vector3( 0, 0, - 1 ) ] );
+		const line = new THREE.Line( LineGeometry );
+		line.name = 'line';
+		line.scale.z = 5;
+		controller1.add( line.clone() );
+		controller2.add( line.clone() );
+
+		// const grip1 = renderer.xr.getControllerGrip(0);
+    	// grip1.add(controllerModelFactory.createControllerModel(grip1));
+    	// scene.add(grip1);
+		// const grip2 = renderer.xr.getControllerGrip(1);
+    	// grip2.add(controllerModelFactory.createControllerModel(grip2));
+    	// scene.add(grip2);
+
+		// controller1.addEventListener('selectstart', onSelectStart);
+		// controller1.addEventListener('selectend', onSelectEnd);
+		// controller2.addEventListener('selectstart', onSelectStart);
+		// controller2.addEventListener('selectend', onSelectEnd);
+		// controller1.addEventListener('triggerdown', onSelectStart);
+		// controller1.addEventListener('triggerup', onSelectEnd);
+		// controller2.addEventListener('triggerdown', onSelectStart);
+		// controller2.addEventListener('triggerup', onSelectEnd);
+
+		rayCaster = new THREE.Raycaster();
+		
+		console.log("controllerModelFactory", controllerModelFactory)
+		console.log("controllerGrip1", controllerGrip1)
+		console.log("controllerGrip2", controllerGrip2)
+		console.log("controller1Model", controller1Model)
+		console.log("controller2Model", controller2Model)
+		console.log("controls", controls)
+		console.log("controller1", controller1)
+		console.log("controller2", controller2)
+		console.log("linegeometry", LineGeometry)
+		console.log("line", line)
+		console.log("raycaster", rayCaster)
+
+
+
+		group = new THREE.Group();
+		scene.add( group );
+
+		function onSelectStart( event ) {
+			const controller = event.target;
+		
+			const intersections = getIntersections( controller );
+		
+			if ( intersections.length > 0 ) {
+		
+				const intersection = intersections[ 0 ];
+		
+				const object = intersection.object;
+				//object.material.emissive.b = 1;
+				controller.attach( object );
+		
+				controller.userData.selected = object;
+		
+			}
+		
+			controller.userData.targetRayMode = event.data.targetRayMode;
+		
+		}
+		
+		function onSelectEnd( event ) {
+		
+			const controller = event.target;
+		
+			if ( controller.userData.selected !== undefined ) {
+		
+				const object = controller.userData.selected;
+				//object.material.emissive.b = 0;
+				group.attach( object );
+		
+				controller.userData.selected = undefined;
+		
+			}
+		
+		}
+		
+		function getIntersections( controller ) {
+		
+			controller.updateMatrixWorld();
+		
+			rayCaster.setFromXRController( controller );
+		
+			return rayCaster.intersectObjects( group.children, false );
+		
+		}
+		
+		function intersectObjects( controller ) {
+		
+			// Do not highlight in mobile-ar
+		
+			if ( controller.userData.targetRayMode === 'screen' ) return;
+		
+			// Do not highlight when already selected
+		
+			if ( controller.userData.selected !== undefined ) return;
+		
+			const line = controller.getObjectByName( 'line' );
+			const intersections = getIntersections( controller );
+		
+			if ( intersections.length > 0 ) {
+		
+				const intersection = intersections[ 0 ];
+		
+				const object = intersection.object;
+				//object.material.emissive.r = 1;
+				intersected.push( object );
+		
+				line.scale.z = intersection.distance;
+		
+			} else {
+		
+				line.scale.z = 5;
+			}
+		}
+		
+		function cleanIntersected() {
+		
+			while ( intersected.length ) {
+		
+				const object = intersected.pop();
+				//object.material.emissive.r = 0;
+			}
+		}
+
+
+
+
 		var stereo = false;
 		var stereoEffect = new THREE.StereoEffect(renderer);
 		stereoEffect.setSize(area.width(), area.height());
@@ -3394,7 +3567,12 @@ if (window.JoclyXdViewCleanup)
 					}
 					if ($this.animating) {
 						frameBacklog++;
-						requestAnimationFrame(Animate);
+						// requestAnimationFrame(Animate);
+
+						// #WEBXRADD
+						renderer.setAnimationLoop(Animate);
+						
+
 					}
 					TWEEN.update();
 					if (showStats)
