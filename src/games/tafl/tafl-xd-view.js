@@ -190,6 +190,7 @@
 						var texBoard = new THREE.Texture(boardCanvas);
 						// And tell Three.js that it needs to update the texture.
 						texBoard.needsUpdate = true;
+						texBoard.colorSpace = THREE.SRGBColorSpace;
 						
 						var materials0=[];		
 						for(var i=0;i<materials.length;i++){
@@ -397,6 +398,7 @@
 				DrawPieceTexture(avatar,bc,bWhite,function() {
 					var texPiece = new THREE.Texture(bc);
 					texPiece.needsUpdate = true;
+					texPiece.colorSpace = THREE.SRGBColorSpace;
 					while(pieceTextures[key].length>0)
 						(pieceTextures[key].shift())(texPiece);
 					pieceTextures[key] = texPiece;
@@ -417,11 +419,12 @@
 						for(var i=0;i<materials.length;i++){
 							var mat=materials[i].clone();
 							if (mat.name=="wood"){
+								texPiece.colorSpace = THREE.SRGBColorSpace;
 	 							mat=new THREE.MeshPhongMaterial({
 											// light
 	 										specular: '#222222',
-	 										color: '#dddddd',
-											shininess: 30,
+	 										color: '#ffffff',
+											shininess: 300,
 											map: texPiece,
 											bumpMap: texPiece,
 											bumpScale:0.03,
