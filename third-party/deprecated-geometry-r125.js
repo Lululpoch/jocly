@@ -1799,7 +1799,7 @@ class DirectGeometry {
 
 				} else {
 
-					console.warn( 'THREE.DirectGeometry.fromGeometry(): Undefined vertexUv ', i );
+					// #UPGRADEISSUE console.warn( 'THREE.DirectGeometry.fromGeometry(): Undefined vertexUv ', i );
 
 					this.uvs.push( new THREE.Vector2(), new THREE.Vector2(), new THREE.Vector2() );
 

@@ -222,7 +222,7 @@ class XRControllerModelFactory {
 
 		const controllerModel = new XRControllerModel();
 		let scene = null;
-		console.log("create")
+		// console.log("create")
 		controller.addEventListener( 'connected', ( event ) => {
 
 			const xrInputSource = event.data;

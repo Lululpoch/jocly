@@ -3339,7 +3339,7 @@ if (window.JoclyXdViewCleanup)
 
 		rayCaster = new THREE.Raycaster();
 		
-		console.log("controllerModelFactory", controllerModelFactory)
+		/* console.log("controllerModelFactory", controllerModelFactory)
 		console.log("controllerGrip1", controllerGrip1)
 		console.log("controllerGrip2", controllerGrip2)
 		console.log("controller1Model", controller1Model)
@@ -3349,7 +3349,7 @@ if (window.JoclyXdViewCleanup)
 		console.log("controller2", controller2)
 		console.log("linegeometry", LineGeometry)
 		console.log("line", line)
-		console.log("raycaster", rayCaster)
+		console.log("raycaster", rayCaster) */
 
 
 
@@ -3767,7 +3767,28 @@ if (window.JoclyXdViewCleanup)
 
 			vr = {};
 
-			if (typeof navigator.getVRDisplays != "undefined") {
+			if (typeof navigator.xr != "undefined") {
+				if (ctx.renderer.xr !== undefined)
+				{
+					if (ctx.renderer.xr.getSession() === null)
+					{
+						console.log("no session found")
+					}
+					else
+					{
+						const inputs = ctx.renderer.xr.getSession().inputSources
+						if (inputs.length == 0)
+						{
+							console.log("no input source detected")
+						}
+						else if (inputs.length > 0)
+						{
+							PureVR()
+						}
+					}
+				}
+			}
+			/*
 				navigator.getVRDisplays()
 					.then(function (displays) {
 						if (displays.length == 0)
@@ -3779,7 +3800,7 @@ if (window.JoclyXdViewCleanup)
 					});
 			} else
 				CardboardVR();
-
+			*/
 			return vr;
 		}
 
